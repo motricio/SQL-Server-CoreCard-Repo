@@ -50,11 +50,11 @@ else '00:00:'+cast(jh.run_duration as varchar(10))
 end
 as [duration (hh:mm:ss)]
 into #temp
-FROM sysjobhistory jh, sysjobs j
+FROM msdb..sysjobhistory jh, msdb..sysjobs j
 WHERE jh.job_id = j.job_id AND j.Name 
 in ('DBA - Maint - FullBackup_Multistripes','DBA - Maint - DiffBackup_Multistripes','DBA - Maint - LogBackup_Multistripes')  
 AND run_status = 1
-AND instance_id = (SELECT MAX(jhm.instance_id) FROM sysjobhistory jhm WHERE jh.job_id = jhm.job_id)
+AND instance_id = (SELECT MAX(jhm.instance_id) FROM msdb..sysjobhistory jhm WHERE jh.job_id = jhm.job_id)
 
 select 
 t.BackupType, 
@@ -66,6 +66,3 @@ group by t.[servername], t.BackupType
 order by t.[servername] desc,   t.BackupType asc
 
 select job_name, job_status, last_run_date, [duration (hh:mm:ss)] from #temp order by [servername] asc
-
-
-
