@@ -10,7 +10,7 @@ SELECT  bs.database_name,
 FROM  msdb.dbo.backupmediafamily bmf
 JOIN msdb.dbo.backupmediaset bms ON bmf.media_set_id = bms.media_set_id
 JOIN msdb.dbo.backupset bs ON bms.media_set_id = bs.media_set_id
-WHERE   bs.[type] = 'D'--— change to L for transaction logs
+WHERE   bs.[type] = 'D'--— change to L for transaction logs, 'I' for differential.
 AND bs.is_copy_only = 0
 and bs.backup_start_date > GETDATE()-8
 )
