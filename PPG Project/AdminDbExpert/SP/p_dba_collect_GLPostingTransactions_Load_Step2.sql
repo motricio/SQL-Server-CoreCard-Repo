@@ -1,20 +1,18 @@
 USE [Admin]
 GO
-
-/****** Object:  StoredProcedure [dbo].[p_dba_collect_GLPostingTransactions_Load_Step2]    Script Date: 12/14/2023 6:48:30 PM ******/
+/****** Object:  StoredProcedure [dbo].[p_dba_collect_GLPostingTransactions_Load_Step2]    Script Date: 12/13/2023 8:47:45 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE PROCEDURE [dbo].[p_dba_collect_GLPostingTransactions_Load_Step2] 
+ALTER PROCEDURE [dbo].[p_dba_collect_GLPostingTransactions_Load_Step2] 
 (@batchSize INT = 100000, @CommitSize INT = 10000)
 AS
 BEGIN
 	SET NOCOUNT ON;
 	--------------------------------------------------------------------------------------------STEP II-----------------------------------------------------------------------------------------------
 	DECLARE @PVT INT = 0;
+	PRINT '---- Batch load started at: '+convert(varchar(30),getdate(),121);
 	WHILE (@PVT < @batchSize)
 	BEGIN
 
@@ -44,7 +42,7 @@ BEGIN
 						FROM Admin.dbo.DBA_GLPostingTransactions_control C 
 						INNER JOIN #temp t ON C.Skey = t.Skey
 						SET @results = @@ROWCOUNT
-						print 'We have inserted: '+convert(varchar(10),@results)+'; '+'Loaded from: '+convert(varchar(10),@id_control)+' To: '+convert(varchar(10),@id_control+@results-1)	
+						print '-- We have inserted: '+convert(varchar(10),@results)+'; '+'Loaded from: '+convert(varchar(10),@id_control)+' To: '+convert(varchar(10),@id_control+@results-1)	
 						SET IDENTITY_INSERT CoreIssue22.dbo.GLPostingTransactions_New OFF 
 					COMMIT TRAN
 				END TRY
@@ -67,6 +65,6 @@ BEGIN
 			   SET  @PVT = @PVT + @CommitSize;
 			--
 		END
-	---
+		PRINT '---- Batch load completed at: '+convert(varchar(30),getdate(),121);
+	--- End while
 END
-GO
