@@ -16,11 +16,11 @@ ALTER PROCEDURE [dbo].[p_dba_collect_active_sessions_resource_usage]
 )
 AS
 BEGIN
-			/*
+			
 			INSERT INTO [dbo].[t_dba_show_active_sessions_resource_usage]
            ([SessionID],[DatabaseName],[LoginName],[HostName],[ProgramName],[status],[transaction_isolation_level],[login_time],[last_request_start_time]
            ,[BlockedBySessionID],[GrantedQueryMemoryKB],[Cpu_Score],[WaitType],[Reads],[Writes],[LogicalReads],[PendingIOCount],[RowCount])
-		   */
+		   
         	SELECT 
 				Sessions.session_id AS SessionID, 
 				databases.name AS DatabaseName,
