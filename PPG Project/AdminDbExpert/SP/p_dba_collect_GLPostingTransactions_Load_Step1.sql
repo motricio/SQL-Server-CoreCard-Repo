@@ -13,7 +13,7 @@ AS
 BEGIN
 	--------------------------------------------------------------------------------------------STEP I------------------------------------------------------------------------------------------------
 	--Delete Control Tables before insert
-	DELETE Admin.dbo.DBA_GLPostingTransactions_control 
+	TRUNCATE TABLE Admin.dbo.DBA_GLPostingTransactions_control;
 	DELETE Admin.dbo.DBA_Partioning_Duplicates_Control WHERE [table] = 'GLPostingTransactions'
 
 
