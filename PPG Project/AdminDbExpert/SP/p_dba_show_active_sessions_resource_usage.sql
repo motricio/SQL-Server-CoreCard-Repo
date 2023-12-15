@@ -63,7 +63,7 @@ BEGIN
 				CROSS APPLY sys.dm_exec_sql_text(sql_handle) AS BlockingSessionQuery
 			where 
 					([Sessions].[session_id]= isnull(@SESSION_ID,[Sessions].[session_id]))
-				and	([Sessions].[login_name]= isnull(@LOGIN_NAME,[Sessions].[login_name]))
+				or	([Sessions].[login_name]= isnull(@LOGIN_NAME,[Sessions].[login_name]))
 			order by Score desc
 END
 GO
