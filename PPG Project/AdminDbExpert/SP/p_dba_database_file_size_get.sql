@@ -1,5 +1,8 @@
 USE [Admin]
 GO
+
+DROP PROCEDURE [dbo].[p_dba_database_file_size_get]
+GO
 /****** Object:  StoredProcedure [dbo].[p_dba_database_file_size_get]    Script Date: 12/14/2023 7:01:02 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -12,7 +15,7 @@ GO
 -- Create date: 20231102
 -- Description:	Table get [t_dba_database_file_size]
 -- =============================================
-ALTER PROCEDURE [dbo].[p_dba_database_file_size_get]
+CREATE PROCEDURE [dbo].[p_dba_database_file_size_get]
 (
 	@ServerName varchar(1000)=null,
 	@DataBaseName varchar(1000)=NULL,
